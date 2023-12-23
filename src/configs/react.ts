@@ -23,6 +23,7 @@ export async function react(
     'eslint-plugin-react',
     'eslint-plugin-react-hooks',
     'eslint-plugin-react-refresh',
+    'eslint-plugin-react-native',
     '@next/eslint-plugin-next',
     '@react-native/eslint-plugin',
   ])
@@ -32,6 +33,7 @@ export async function react(
     pluginReactHooks,
     pluginReactRefresh,
     pluginNextJs,
+    pluginReactNativePlugin,
     pluginReactNative,
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-react')),
@@ -39,6 +41,7 @@ export async function react(
     interopDefault(import('eslint-plugin-react-refresh')),
     interopDefault(import('@next/eslint-plugin-next')),
     interopDefault(import('@react-native/eslint-plugin')),
+    interopDefault(import('eslint-plugin-react-native')),
   ] as const)
 
   const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(
@@ -50,7 +53,9 @@ export async function react(
       name: 'antfu:react:setup',
       plugins: {
         ...(next ? { '@next/next': pluginNextJs } : {}),
-        ...(native ? { 'react-native': pluginReactNative } : {}),
+        ...(native
+          ? { '@react-native': pluginReactNativePlugin, 'react-native': pluginReactNative }
+          : {}),
         'react': pluginReact,
         'react-hooks': pluginReactHooks,
         'react-refresh': pluginReactRefresh,
@@ -123,8 +128,8 @@ export async function react(
 
         ...native
           ? {
-              'react-native/platform-colors': 'error',
-              ...pluginReactNative.rules,
+              '@react-native/platform-colors': 'error',
+              ...pluginReactNative.configs.all.rules,
             }
           : {},
 
