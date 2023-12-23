@@ -1,7 +1,7 @@
 {
   "name": "@yang1206/eslint-config",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.12.1",
   "description": "Yang1206's ESLint config",
   "author": "Yang1206 <y1149221897@outlook.com> (https://github.com/yang1206/)",
